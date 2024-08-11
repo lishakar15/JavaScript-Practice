@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <script>
+        const taskArr = [];
+
+       function addToList()
+       {
+        let element = document.getElementById("task");
+        taskArr.push(element.value);
+        renderTaskLists();
+       }
+
+       function deleteTask(index)
+       {
+            taskArr.splice(index,1);
+            renderTaskLists();
+       }
+
+       function renderTaskLists()
+       {
+        let todoListHtml ="";
+        for(let i =0; i<taskArr.length; i++)
+       {
+
+        const innerHTML = 
+        `<div>${taskArr[i]}</div>
+        <button onclick="deleteTask(${i})"> Delete</button>
+        `
+        todoListHtml += innerHTML;
+        
+       }
+       document.getElementById("renderPlace").innerHTML=todoListHtml;
+       }
+
+    </script>
+</head>
+<body>
+    <input type ="text" id ="task" name = "task" >
+    <button onclick='addToList()'>Submit</button>
+    <div id="renderPlace"></div>
+</body>
+</html>
