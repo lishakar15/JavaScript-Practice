@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Event Listeners</title>
+<style>
+
+.inputField::placeholder{
+    color: grey;
+    font-style: oblique;
+}
+.btn{
+    background-color: green;
+    padding: 3px;
+    border-radius: 5%;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+</style>
+
+</head>
+<body>
+    <div>
+    <input type="text" id="inputField" class="inputField" placeholder="Add Text Here">
+<button id ="btn" onclick="showAlert()"class="btn">Click Me </button>
+</div>
+
+</body>
+<script>
+    const showAlert = function ()
+    {
+        alert("Button Clicked");
+    }
+
+    const showAlert2 = function ()
+    {
+        alert("You clicked the button");
+    }
+
+    const keyPressed = function (event)
+    {
+        alert(event.key + " Key Pressed");
+    }
+    const changeColorOnMouseOver = function ()
+    {
+        buttonElement.style.backgroundColor = 'blue';
+    }
+    const changeMouseColorOnMouseOut = function ()
+    {
+        buttonElement.style.backgroundColor = 'green';
+    }
+
+    //Click Events
+    let buttonElement = document.querySelector('.btn');
+    buttonElement.addEventListener('click',showAlert); 
+    buttonElement.addEventListener('click',showAlert2); //We can use multiple function for an event
+    buttonElement.addEventListener('mouseover',changeColorOnMouseOver);
+    buttonElement.addEventListener('mouseout',changeMouseColorOnMouseOut);
+
+    const removeEventListner2 = function (param){
+        buttonElement.removeEventListener('click',param);
+    };
+    setTimeout(() => removeEventListner2(showAlert2),5000);
+
+    //Keypress Events
+    let inputElement = document.getElementById('inputField');
+    inputElement.addEventListener('keypress',(event)=>{
+        keyPressed(event);
+    });
+
+    
+
+    
+    </script>
+</html>
