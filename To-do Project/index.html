@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        .todo-input-grid, .todo-grid{
+           display: grid;
+           grid-template-columns: 200px 150px 100px;
+           row-gap: 10px;
+           column-gap: 10px;
+           align-items: center;
+        }
+        .todo-input-grid{
+            align-items: stretch;
+        }
+        .taskInput, .dueDateInput{
+            font-size: 15px;
+        }
+        .addButton{
+            background-color: green;
+            border: none;
+            color: white;
+            font-size: 15px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .deleteButton{
+            background-color: darkred;
+            border: none;
+            color: white;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    
+    </style>
+    <script>
+        const taskArr = [];
+
+       function addToList()
+       {
+        let task = document.getElementById("task").value;
+        let dueDate = document.getElementById("dueDate").value;
+        if(task == "")
+        {
+            return;
+        }
+        const taskObj = {"task":task,
+            "dueDate":dueDate
+        };
+
+        taskArr.push(taskObj);
+        renderTaskLists();
+        document.getElementById("task").value ="";
+        document.getElementById("dueDate").value="";
+       }
+
+       function deleteTask(index)
+       {
+            taskArr.splice(index,1);
+            renderTaskLists();
+       }
+
+       function renderTaskLists()
+       {
+        let todoListHtml ="";
+        for(let i =0; i<taskArr.length; i++)
+       {
+            let task = taskArr[i].task;
+            let dueDate = taskArr[i].dueDate;
+
+        const innerHTML = 
+        `<div>${task} </div>
+         <div>${dueDate}</div>
+         <button class="deleteButton" onclick="deleteTask(${i})"> Delete</button>`
+
+        todoListHtml += innerHTML;
+        
+       }
+       document.getElementById("renderPlace").innerHTML=todoListHtml;
+       }
+
+    </script>
+</head>
+<body>
+    <div class="todo-input-grid" id ="toDoHtml">
+        <input type ="text" class="taskInput" id ="task" name = "task" >
+        <input type ="date" class="dueDateInput" id ="dueDate" name ="dueDate">
+        <button class ="addButton" onclick='addToList()'>Submit</button>
+        <div class="todo-grid" id="renderPlace"></div>
+    </div>
+</body>
+</html>
