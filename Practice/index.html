@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Project</title>
+<style>
+
+    .buttons{
+        display: grid;
+        grid-template-columns: 100px 100px;
+        column-gap: 50px;
+    }
+    .start{
+        background-color: rgb(0, 255, 85);
+    }
+    .end{
+        background-color: red;
+    }
+
+    .start, .end{
+        padding-top: 20px;
+        padding-bottom: 20px;
+        cursor: pointer;
+    }
+</style>
+<script>
+
+const greet = function () {
+    console.log("Hello! "+interval);
+}
+
+let intervalId;
+function start()
+{
+    intervalId = setInterval(doGreeting,2000);
+}
+
+function stop()
+{
+    clearInterval(intervalId);
+}
+function doGreeting()
+{
+    console.log("Hello There!");
+}
+
+
+
+</script>
+</head>
+<body>
+
+    <h2>
+        I Will Rise!
+    </h2>
+    <div class ="buttons">
+        <button class ="start" onclick="start()">Start</button>
+        <button class ="end" onclick="stop()">End</button>
+    </div>
+
+
+</body>
+
+</html>
