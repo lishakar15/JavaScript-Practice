@@ -11,10 +11,29 @@
 </body>
 <script>
 
+//Array.push()
 const arr = [10,20];
 arr.push(30);
 arr.push(40);
 console.log(arr);
+
+//Array.pop()
+arr.pop();
+arr.pop();
+console.log(arr);
+
+//Array.shift() -- Removes element at first and shifts the remaining elements to the left
+const arrShift = ["Car","Bus","Cycle","Bike"];
+arrShift.shift();
+console.log(arrShift);
+
+//Array.unShift() -- Adds element at first and shifts the remaining elements to the right
+const arrUnShift = ["Car","Bus","Cycle","Bike"];
+arrUnShift.unshift("Plane");
+console.log(arrUnShift);
+
+
+//Array.forEach()
 const printArrayElements = function (index, value)
 {
     console.log("index = "+index+" value = "+value);
@@ -22,6 +41,7 @@ const printArrayElements = function (index, value)
 arr.forEach((index, value)=> {
     printArrayElements(index, value);
 });
+
 
 //Filter method
 const arr1 = [5,-2,3,1];
@@ -36,6 +56,52 @@ const mappedArr = arr2.map((value, index)=>{
     return value * 10;
 });
 console.log(mappedArr);
+
+//Array.at()
+const fruits = ["Apple","Orange","Mango"];
+let fruit = fruits.at(1);
+console.log(fruit);
+
+//Array.join()
+console.log(fruits.join("#"));
+
+//Array.delete()  --> This will create a hole with undefined value on the deleted element position (Not recommended to use)
+const arr3 = [5,3,6,1];
+delete arr3[2];
+console.log(arr3);
+
+//Array.concat()
+const boys = ["Arun","Vijay","Kumar"];
+const girls = ["Hannah", "Sofia", "Leena"];
+const humans = boys.concat(girls);
+console.log(humans);
+
+//Array.flat()  --> Toconvert multi dimensional array into one dimensional
+const myArr = [[1,2],[3,4],[5,6]];
+const newArr = myArr.flat();
+console.log(newArr);
+
+//Array.splice()
+//Adding elements using splice method
+const arr4 = ["Apple","Orange","Mango","Banana"];
+arr4.splice(2,1,"Lemon","Kiwi"); //Remove 1 element from index 2 and add these 2 new elements at index 2 
+console.log(arr4);
+
+//Removing elements using splice method
+const arr5 = ["Apple","Orange","Mango","Banana"];
+arr5.splice(1,2); //remove two elements from index 1
+console.log(arr5);
+
+//Array.toSpliced() --> This will not modify the original array instead it create a new result array
+const arr6 = [5,-2,3,0,-1,7];
+const resultArr = arr6.toSpliced(0,3);
+console.log(resultArr);
+
+//Array.slice()  --> returns new array with elements from and to specified 
+const arr7 = ["Naruto","Sasuke","Hidan","Madara","Lee"];
+console.log(arr7.slice(2,5));
+
+
 
 </script>
 
