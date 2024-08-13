@@ -1,16 +1,22 @@
 import { products  } from "../data/products.js";
 import {convertCents} from "./currencyConverter.js"
 
-const carts = [
-    {
-        productId : "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-        quantity : 2
-    },
-    {
-        productId : "54e0eccd-8f36-462b-b68a-8182611d9add",
-        quantity : 1
-    }
-];
+let carts = JSON.parse(localStorage.getItem('cartsList'));
+
+if(!carts)
+{
+    carts = [
+        {
+            productId : "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+            quantity : 2
+        },
+        {
+            productId : "54e0eccd-8f36-462b-b68a-8182611d9add",
+            quantity : 1
+        }
+    ];
+}
+
 
 let orderSummaryHTML="";
 carts.forEach((cart)=>
@@ -126,5 +132,19 @@ deleteElements.forEach((deleteElement)=>
 function deleteProductFromCart(productId)
 {
     const deleteElement = document.querySelector(".js-item-container-"+productId);
+
+    //Remove item from carts
+    let newCarts = [];
+    carts.forEach((cart)=>{
+        if(productId !== cart.productId)
+        {
+            newCarts.push(cart);
+        }
+    });
+    carts =[];
+    carts = newCarts;
+    //Store the current cart details in local storage
+    localStorage.setItem('cartsList',JSON.stringify(carts));
+    //Remove the deleted item's div
     deleteElement.remove();
 }

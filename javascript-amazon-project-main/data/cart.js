@@ -34,6 +34,7 @@ export const addToCart = function(productId)
             });
             showAddedMessage(productId); 
         }
+        localStorage.setItem('cartsList',JSON.stringify(carts));
 }
 
 const showAddedMessage = function (productId)
