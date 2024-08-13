@@ -1,9 +1,11 @@
 import {carts,addToCart} from "../data/cart.js";
 import {products} from "../data/products.js";
+import { convertCents } from "./currencyConverter.js";
 
 let productsHtml ='';
 
 products.forEach((product)=>{
+  const productPrice = convertCents(product.priceCents);
 const html = `
         <div class="product-container">
           <div class="product-image-container">
@@ -24,7 +26,7 @@ const html = `
           </div>
 
           <div class="product-price">
-            $${(product.priceCents/100).toFixed(2)}
+            $${productPrice}
           </div>
 
           <div class="product-quantity-container ">
@@ -57,18 +59,6 @@ const html = `
         </div>`;
         productsHtml+=html;
 });
-
-const showAddedMessage = function (productId)
-{
-  const messageElement = document.querySelector('.js-added-message-'+productId);
-  console.log("messageElement "+messageElement);
-  messageElement.style.opacity= "1";
-
-  setTimeout(()=>
-  {
-    messageElement.style.opacity= "0";
-  },1000);
-}
 
 const updateQuantityInCart = function ()
 {
