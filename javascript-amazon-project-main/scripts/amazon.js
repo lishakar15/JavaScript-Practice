@@ -26,8 +26,8 @@ const html = `
             $${(product.priceCents/100).toFixed(2)}
           </div>
 
-          <div class="product-quantity-container">
-            <select>
+          <div class="product-quantity-container ">
+            <select class="js-quantity-selector-${product.id}">
               <option selected value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -73,14 +73,16 @@ addToCartElements.forEach((btnElement)=>{
             productName = product.name;
           }
         });
-        console.log("product name "+productName);
+        const selectQuantityElement = document.querySelector(`.js-quantity-selector-${productId}`); 
+        const selectedQuantity = Number(selectQuantityElement.value);
+        console.log("selectedQuantity = "+selectedQuantity);
         //Check if the same product is already exists
         let productMatchFound = false;
         carts.forEach((cart)=>{
             if(cart.productId === productId)
             {
                 productMatchFound =true;
-                cart.quantity++;
+                cart.quantity+=selectedQuantity;
             }
         });
         if(!productMatchFound)
@@ -88,9 +90,10 @@ addToCartElements.forEach((btnElement)=>{
             carts.push({
                 "productId":productId,
                 "productName":productName,
-                "quantity":1
+                "quantity":selectedQuantity
             });  
         }
+        console.log(carts);
         let totalQuantity = 0;
         carts.forEach((cart)=>{
           totalQuantity+=cart.quantity;
