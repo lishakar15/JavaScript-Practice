@@ -91,6 +91,11 @@ addToCartElements.forEach((btnElement)=>{
                 "quantity":1
             });  
         }
-        console.log(carts);
+        let totalQuantity = 0;
+        carts.forEach((cart)=>{
+          totalQuantity+=cart.quantity;
+        });   
+        const quantityElement = document.querySelector(".js-cart-quantity");
+        quantityElement.innerHTML= totalQuantity;
     })
 });
