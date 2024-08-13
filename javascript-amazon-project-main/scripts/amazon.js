@@ -67,7 +67,7 @@ const showAddedMessage = function (productId)
   setTimeout(()=>
   {
     messageElement.style.opacity= "0";
-  },2000);
+  },1000);
 }
 
 const updateQuantityInCart = function ()

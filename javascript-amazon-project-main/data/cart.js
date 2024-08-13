@@ -1,4 +1,7 @@
+import {products} from "../data/products.js";
 export const carts = [];
+
+
 
 export const addToCart = function(productId)
 {
@@ -31,4 +34,16 @@ export const addToCart = function(productId)
             });
             showAddedMessage(productId); 
         }
+}
+
+const showAddedMessage = function (productId)
+{
+  const messageElement = document.querySelector('.js-added-message-'+productId);
+  console.log("messageElement "+messageElement);
+  messageElement.style.opacity= "1";
+
+  setTimeout(()=>
+  {
+    messageElement.style.opacity= "0";
+  },1000);
 }
