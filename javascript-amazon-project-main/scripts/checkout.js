@@ -19,6 +19,7 @@ if(!carts)
 
 
 let orderSummaryHTML="";
+let totalItemsCount =0;
 carts.forEach((cart)=>
 {
 
@@ -55,9 +56,9 @@ orderSummaryHTML+= `
                 </div>
                 <div class="product-quantity">
                   <span>
-                    Quantity: <span class="quantity-label">${cart.quantity}</span>
+                    Quantity: <span class="quantity-label js-quantity-${productId}">${cart.quantity}</span>
                   </span>
-                  <span class="update-quantity-link link-primary">
+                  <span class="update-quantity-link link-primary js-update-link" data-product-id=${productId}>
                     Update
                   </span>
                   <span class="delete-quantity-link link-primary js-delete" data-product-id="${productId}">
@@ -113,11 +114,16 @@ orderSummaryHTML+= `
             </div>
           </div>
 `;
-    
-});
+totalItemsCount+=cart.quantity;
+}
+);
 
 const summaryElement = document.querySelector(".js-order-summary");
 summaryElement.innerHTML=orderSummaryHTML;
+console.log("Total items ===> "+totalItemsCount);
+
+const checkoutItemsCountElement = document.querySelector('.js-checkout-total-items');
+checkoutItemsCountElement.innerHTML = `${totalItemsCount} items`;
 
 const deleteElements = document.querySelectorAll(".js-delete");
 deleteElements.forEach((deleteElement)=>
@@ -127,6 +133,24 @@ deleteElements.forEach((deleteElement)=>
         deleteProductFromCart(deleteProductId);
         console.log("Delete id = "+deleteProductId);
     });
+});
+
+const updateLinkElements = document.querySelectorAll('.js-update-link');
+updateLinkElements.forEach((updateLinkElement)=>{
+  const productId = updateLinkElement.dataset.productId;
+  console.log("productid == "+productId);
+  updateLinkElement.addEventListener('click',()=>{
+    let updateHTML =`<input style ="width:40px;" name="newQuantity" id ="newQuantity" class="new-quantity">
+    <button style="background-color:green;color:white;" class="save-quantity-btn">Save</button>`
+    let newSpan = document.createElement("span");
+    newSpan.classList.add("js-update-text");
+    newSpan.innerHTML=updateHTML;
+    updateLinkElement.parentNode.replaceChild(newSpan,updateLinkElement);
+
+    const saveButtonElement = document.querySelector('.save-quantity-btn');
+    saveButtonElement.addEventListener('click',()=>saveQuantity(productId));
+  });
+
 });
 
 function deleteProductFromCart(productId)
@@ -147,4 +171,33 @@ function deleteProductFromCart(productId)
     localStorage.setItem('cartsList',JSON.stringify(carts));
     //Remove the deleted item's div
     deleteElement.remove();
+    updateTotalItems();
 }
+const saveQuantity = function (productId)
+{
+  const newQuantity = document.querySelector('.new-quantity').value;
+  document.querySelector(`.js-quantity-${productId}`).innerHTML=newQuantity;
+  let updateTexElement = document.querySelector('.js-update-text');
+  let originalElement = document.createElement("span");
+  originalElement.classList.add("update-quantity-link", "link-primary", "js-update-link");
+  originalElement.innerHTML="Update";
+updateTexElement.parentNode.replaceChild(originalElement,updateTexElement);
+
+carts.forEach((cart)=>{
+  if(cart.productId === productId)
+  {
+    cart.quantity=Number(newQuantity);
+  }
+  localStorage.setItem("cartsList",JSON.stringify(carts));
+  updateTotalItems();
+});
+}
+const updateTotalItems = function()
+{
+  let totalItemsCount = 0;
+  carts.forEach((cart)=>{
+    totalItemsCount+=cart.quantity;
+  });
+  const checkoutItemsCountElement = document.querySelector('.js-checkout-total-items');
+checkoutItemsCountElement.innerHTML = `${totalItemsCount} items`;
+};
