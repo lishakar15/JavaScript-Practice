@@ -120,8 +120,6 @@ totalItemsCount+=cart.quantity;
 
 const summaryElement = document.querySelector(".js-order-summary");
 summaryElement.innerHTML=orderSummaryHTML;
-console.log("Total items ===> "+totalItemsCount);
-
 const checkoutItemsCountElement = document.querySelector('.js-checkout-total-items');
 checkoutItemsCountElement.innerHTML = `${totalItemsCount} items`;
 
@@ -131,14 +129,13 @@ deleteElements.forEach((deleteElement)=>
     deleteElement.addEventListener('click',()=>{
         const deleteProductId = deleteElement.dataset.productId;
         deleteProductFromCart(deleteProductId);
-        console.log("Delete id = "+deleteProductId);
     });
 });
-
-const updateLinkElements = document.querySelectorAll('.js-update-link');
+const doUpdateOperation = function()
+{
+  const updateLinkElements = document.querySelectorAll('.js-update-link');
 updateLinkElements.forEach((updateLinkElement)=>{
   const productId = updateLinkElement.dataset.productId;
-  console.log("productid == "+productId);
   updateLinkElement.addEventListener('click',()=>{
     let updateHTML =`<input style ="width:40px;" name="newQuantity" id ="newQuantity" class="new-quantity">
     <button style="background-color:green;color:white;" class="save-quantity-btn">Save</button>`
@@ -146,12 +143,13 @@ updateLinkElements.forEach((updateLinkElement)=>{
     newSpan.classList.add("js-update-text");
     newSpan.innerHTML=updateHTML;
     updateLinkElement.parentNode.replaceChild(newSpan,updateLinkElement);
-
     const saveButtonElement = document.querySelector('.save-quantity-btn');
-    saveButtonElement.addEventListener('click',()=>saveQuantity(productId));
+      saveButtonElement.addEventListener('click',()=>saveQuantity(productId));
   });
 
 });
+}
+doUpdateOperation();
 
 function deleteProductFromCart(productId)
 {
@@ -180,9 +178,10 @@ const saveQuantity = function (productId)
   let updateTexElement = document.querySelector('.js-update-text');
   let originalElement = document.createElement("span");
   originalElement.classList.add("update-quantity-link", "link-primary", "js-update-link");
+  originalElement.dataset.productId=productId;
   originalElement.innerHTML="Update";
 updateTexElement.parentNode.replaceChild(originalElement,updateTexElement);
-
+doUpdateOperation();
 carts.forEach((cart)=>{
   if(cart.productId === productId)
   {
