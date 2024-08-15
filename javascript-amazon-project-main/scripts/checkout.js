@@ -1,6 +1,13 @@
 import { products  } from "../data/products.js";
-import {convertCents} from "./currencyConverter.js"
+import {convertCents} from "./Money.js"
+import {hello} from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js";
+import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 
+import "./cart-oops.js";
+
+console.log(hello());
+const today = dayjs(); //Imported function from dayjs library
+console.log(today.format('dddd, MMMM D'));
 let carts = JSON.parse(localStorage.getItem('cartsList'));
 
 if(!carts)

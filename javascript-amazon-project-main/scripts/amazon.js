@@ -1,6 +1,6 @@
 import {carts,addToCart} from "../data/cart.js";
 import {products} from "../data/products.js";
-import { convertCents } from "./currencyConverter.js";
+import { convertCents } from "./Money.js";
 
 let productsHtml ='';
 
