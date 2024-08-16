@@ -1,4 +1,5 @@
-export const products = [
+import { renderProductsGrid } from "../scripts/amazon.js";
+/*export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
@@ -657,4 +658,19 @@ export const products = [
       "mens"
     ]
   }
-];
+];*/
+
+export let products = [];
+
+export const loadProducts = function(renderFun){
+  const xhr = new XMLHttpRequest();
+  xhr.addEventListener('load',()=>{
+    products = JSON.parse(xhr.response);
+    console.log(products);
+    renderFun();
+  }
+  );
+  xhr.open('GET',"https://supersimplebackend.dev/products");
+  xhr.send();
+}
+loadProducts();
