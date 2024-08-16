@@ -1,7 +1,7 @@
 class Cart {
 
-    carId;
-    carName;
+    carId
+    #carName;
     model;
 
     constructor(carId,carName,model)
@@ -16,5 +16,14 @@ class Cart {
     }
 }
 
-let cart = new Cart(1,"BMW","X500");
-cart.printCarDeatils();
+let cart = new Cart(10,"Tata Nano","MTR345");
+console.log(cart.carName);
+console.log(cart.printCarDeatils());
+
+
+const xhr = new XMLHttpRequest();
+xhr.addEventListener('load',()=>{
+    console.log(xhr.response);
+});
+xhr.open('GET','https://supersimplebackend.dev/');
+xhr.send();
